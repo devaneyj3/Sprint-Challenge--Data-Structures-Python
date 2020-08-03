@@ -10,7 +10,7 @@ This part of the project comprises two days:
    on the BSTNode class.
 """
 class BSTNode:
-    def __init__(self, value = None):
+    def __init__(self, value = ''):
         self.value = value
         self.left = None
         self.right = None
@@ -38,10 +38,8 @@ class BSTNode:
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-
         if self.value == target:
-            return True
-        # we go right if we do not find the value
+            return target
         if self.value > target:
             if self.left is not None:
                 return self.left.contains(target)

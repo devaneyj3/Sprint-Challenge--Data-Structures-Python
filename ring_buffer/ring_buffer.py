@@ -1,35 +1,39 @@
-from LinkedList import DoublyLinkedList
+from ll import DoublyLinkedList
 class RingBuffer:
     def __init__(self, capacity):
         self.capacity = capacity
         self.data = []
-
-    def append(self, item):
-        # add item to list
-        ll = DoublyLinkedList(None)
-        ll.add_to_head(item)
-        print(ll)
-        # length can't be more than 5
-        if len(ll) > self.capacity:
-            print('here')
-            # get rid of last elment
-            lastEl = self.data.pop(0)
-            print(lastEl)
-            # insert the new elment at position 0
-            self.data.insert(0, item)
+        self.curr = 0
         
-        return self.data
+    def append(self, item):
+        if len(self.data) == self.capacity:
+            self.data[self.curr] = item
+            # set enumerator to how many spaces ar left
+            self.curr = (self.curr + 1) % self.capacity
+        else:
+            self.data.append(item)
 
     def get(self):
-        
-        return ll
+
+        return self.data
     
 
-buffer = RingBuffer(5)
+buffer = RingBuffer(3)
+
+buffer.get()   # should return []
 
 buffer.append('a')
-buffer.append('a')
-buffer.append('a')
-buffer.append('a')
+buffer.append('b')
+buffer.append('c')
 
-print(buffer.get()) 
+buffer.get()   # should return ['a', 'b', 'c']
+
+# 'd' overwrites the oldest value in the ring buffer, which is 'a'
+buffer.append('d')
+
+buffer.get()   # should return ['d', 'b', 'c']
+
+buffer.append('e')
+buffer.append('f')
+
+buffer.get()   # should return ['d', 'e', 'f'

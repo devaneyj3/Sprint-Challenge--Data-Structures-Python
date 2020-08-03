@@ -9,16 +9,17 @@ class ListNode:
         self.next = next
         
     def remove(self): 
+        print(f'self.value: {self.value} and of type {type(self)}')
         # print(f' self value is {self.value}')
         if self.prev:
-            # print(f' self value is {self.value}')
             # print(f'Now self previos head is {self.prev.value}')
             self.prev.next = self.next
             self.next = None
+            print(f' self value is {self.prev.value}')
         if self.next:
-            # print(f' self value is {self.value}')
             # print(f'Now self next head is {self.next.value}')
             self.next.prev = self.prev
+            print(f' self next is {self.next.value}')
             
 """
 Our doubly-linked list class. It holds references to 
@@ -32,7 +33,10 @@ class DoublyLinkedList:
 
     def __len__(self):
         return self.length
-
+    
+    def __str__(self):
+        if self.head is not None and self.tail is not None:
+            print(f' str method in ll.__stry__ is {self.head.value} ')
         
     
     
@@ -43,6 +47,7 @@ class DoublyLinkedList:
     """
     def add_to_head(self, value):
         new_head_node = ListNode(value, None, None)
+        # print(f'You are adding {new_head_node.value}')
         self.length += 1
         if not self.head and not self.tail:
             # make head node
@@ -56,7 +61,6 @@ class DoublyLinkedList:
             new_head_node.prev = None
             
             self.head = new_head_node
-            print(f'set head node: {self.head.value}')
     """
     Removes the List's current head node, making the
     current head's next node the new head of the List.
@@ -71,11 +75,9 @@ class DoublyLinkedList:
             self.head = None
             self.tail = None
             return head.value
-        current = self.head.value
-        print(current)
+        current = self.head
         self.head = self.head.next
-        self.length -= 1
-        
+        self.length -= 1        
         return current
     """
     Wraps the given value in a ListNode and inserts it 
@@ -116,15 +118,16 @@ class DoublyLinkedList:
         # if we call move_to_front on head node set that node to head
         if node is self.head:
             return
-        value = node.value
+        value = node
         # if node is self.tail
         if node is self.tail:
             self.remove_from_tail()
             self.add_to_head(value)
         else:
+            print(f"node is {node.value} and type {type(node)}")
             node.remove()
             self.length -= 1
-            self.add_to_head(value)
+            self.add_to_head(node)
         
         
             # print(f'self.tail: {self.tail.value}')
@@ -136,7 +139,7 @@ class DoublyLinkedList:
     def move_to_end(self, node):
         if node is self.tail:
             return
-        value = node.value
+        value = node
         print(value)
         if node is self.head:
             self.remove_from_head()
@@ -171,4 +174,3 @@ class DoublyLinkedList:
             node.remove()
         else:
             node.remove()
-        

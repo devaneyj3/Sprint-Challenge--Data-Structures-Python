@@ -18,9 +18,12 @@ class LinkedList:
 
     def add_to_head(self, value):
         node = Node(value)
+        # print('\nnode passed in to add_to_head is ', node)
 
         if self.head is not None:
+            # print(f'\nself.head: {self.head.get_value()}')
             node.set_next(self.head)
+            # print(f'\nNew self.head.next: {self.head.get_next().value}\n')
         self.head = node
 
 
@@ -38,28 +41,18 @@ class LinkedList:
 
         return False
 
-    def reverse_list(self, node, prev):
-        # print(self.head.next.value)
-        # we need a pointer to the next node after self.head
-        self.head = node
-        node.set_next(prev)
-        
-        while current:
-            print(f'self.head is, {current}')
-            if current.get_next() is None:
-                # put this node in front 
-                targetNode = current
-                print(f'this node does not have a next, {targetNode}')
-                self.add_to_head(targetNode)
-            current = current.get_next()
-        # while current:
-        #     nxt = current.next
-        #     current.next = prev
+    def reverse_list(self, node=None, prev=None):
+        prev = None
+        current = self.head
+        print(f'self.head: {self.head}')
+        while current is not None:
+            next = current.get_next()
+            current.set_next(prev)
             
-        #     prev = current
-        #     current = nxt
-        # self.head = prev
-        
+            prev = current
+            print(f'prev is: {current}')
+            current = next
+        self.head = prev
 ll = LinkedList()
 
 ll.add_to_head(1)
@@ -68,5 +61,5 @@ ll.add_to_head(3)
 ll.add_to_head(4)
 ll.add_to_head(5)
 
-ll.reverse_list(5, 1)
+ll.reverse_list()
 
